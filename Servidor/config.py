@@ -17,4 +17,8 @@ REFRESH_INTERVAL_MS = 2000
 
 # Logging
 LOG_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+LOG_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 LOG_FILE = "server.log"
+
+# System
+BACKGROUND_MODE = True

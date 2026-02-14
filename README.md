@@ -55,7 +55,30 @@ El sistema se compone de dos módulos principales:
     python main.py
     ```
 
-### 2. Cliente (Flutter)
+### 1. Generar Ejecutables (Windows/Linux)
+
+El proyecto incluye un script de construcción (`setup_build.py`) para crear ejecutables independientes.
+
+**Windows (.exe):**
+1.  Asegúrate de tener instalado `cx_Freeze`:
+    ```bash
+    pip install cx_Freeze
+    ```
+2.  Ejecuta el script de construcción:
+    ```bash
+    cd Servidor
+    python setup_build.py build
+    ```
+3.  El ejecutable se generará en la carpeta `build/exe.win-amd64-3.x/SIGEP_Server.exe`.
+
+**Linux:**
+1.  Copia el proyecto a tu entorno Linux.
+2.  Instala las dependencias y `cx_Freeze`.
+3.  Ejecuta el mismo comando:
+    ```bash
+    python setup_build.py build
+    ```
+4.  El ejecutable compilado para Linux aparecerá en la carpeta `build/exe.linux-x86_64-3.x/`.
 
 **Requisitos:**
 *   Flutter SDK instalado y configurado.
