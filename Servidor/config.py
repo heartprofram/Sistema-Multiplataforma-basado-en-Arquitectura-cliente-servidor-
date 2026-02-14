@@ -10,7 +10,8 @@ LOG_LEVEL = "info"
 
 # GUI
 THEME = "Light"
-APP_TITLE = "SIGEP 2.0 - Sistema Integral"
+APP_TITLE = "SIGEP 1.0 Stable - Sistema Integral"
+VERSION = "1.0.0"
 APP_GEOMETRY = "1200x750"
 REFRESH_INTERVAL_MS = 2000
 
