@@ -15,11 +15,12 @@ El sistema se compone de dos módulos principales:
 *   **Gestión de Personal**: CRUD completo de empleados, cargos y horarios.
 *   **Nómina**: Visualizacion de datos personales y laborales.
 *   **Control de Asistencia**: Monitoreo en tiempo real y generación de reportes (Excel/PDF).
-*   **API REST**: Servicio local para conexión con la app móvil.
+*   **Módulo de Estadísticas**: Cálculo de efectividad de asistencia con gráficos y exportación a Excel.
+*   **API REST**: Servicio local optimizado para conexión con la app móvil.
 
 ### Cliente (Móvil)
-*   **Autenticación**: Inicio de sesión seguro y soporte para biometría.
-*   **Marcaje de Asistencia**: Registro de entrada/salida con geolocalización/red local.
+*   **Autenticación**: Inicio de sesión seguro, soporte para biometría y detección de IP del servidor.
+*   **Marcaje de Asistencia**: Registro de entrada/salida con geolocalización/red local (Soporte HTTP/Cleartext).
 *   **Dashboard Personal**: Visualización de perfil, carga académica y recibos de pago.
 
 ## 📂 Estructura del Proyecto
