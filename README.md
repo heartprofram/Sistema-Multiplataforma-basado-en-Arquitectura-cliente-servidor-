@@ -13,7 +13,7 @@ El sistema se compone de dos módulos principales:
 
 ### Servidor (Administrativo)
 *   **Gestión de Personal**: CRUD completo de empleados, cargos y horarios.
-*   **Nómina**: Cálculo y visualización de sueldos, bonos y deducciones.
+*   **Nómina**: Visualizacion de datos personales y laborales.
 *   **Control de Asistencia**: Monitoreo en tiempo real y generación de reportes (Excel/PDF).
 *   **API REST**: Servicio local para conexión con la app móvil.
 
