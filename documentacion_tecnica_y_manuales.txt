@@ -1,0 +1,253 @@
+================================================================================
+                        MANUAL TÉCNICO Y DE USUARIO
+            SISTEMA INTEGRAL DE GESTIÓN DE EMPLEADOS Y ASISTENCIA (SIGEP)
+================================================================================
+
+TABLA DE CONTENIDOS
+-------------------
+1. INTRODUCCIÓN Y ALCANCE
+2. ARQUITECTURA DEL SISTEMA (DOCUMENTACIÓN TÉCNICA)
+    2.1. Descripción General
+    2.2. Tecnologías Utilizadas
+    2.3. Diagrama de Base de Datos (Relacional)
+    2.4. Estructura del Proyecto
+    2.5. Seguridad y Comunicaciones
+3. MANUAL DE INSTALACIÓN Y DESPLIEGUE
+    3.1. Requisitos Previos
+    3.2. Instalación del Servidor (Windows)
+    3.3. Instalación del Servidor (Linux)
+    3.4. Instalación del Cliente (Android)
+4. MANUAL DE USUARIO - APLICACIÓN SERVIDOR (ADMINISTRADOR)
+    4.1. Inicio de Sesión y Dashboard
+    4.2. Gestión de Nómina y Empleados
+    4.3. Monitor de Asistencia en Tiempo Real
+    4.4. Generación de Reportes (PDF/Excel)
+    4.5. Configuración del Sistema
+5. MANUAL DE USUARIO - APLICACIÓN MÓVIL (DCOLABORADOR)
+    5.1. Inicio de Sesión
+    5.2. Mi Información
+    5.3. Marcaje de Asistencia
+6. SOLUCIÓN DE PROBLEMAS FRECUENTES (TROUBLESHOOTING)
+
+================================================================================
+1. INTRODUCCIÓN Y ALCANCE
+================================================================================
+El Sistema Integral de Gestión de Empleados y Asistencia (SIGEP) es una solución 
+multiplataforma diseñada para modernizar y automatizar el control de personal en 
+instituciones educativas y empresariales. 
+
+El sistema permite la administración centralizada de empleados, cargos y horarios 
+desde un servidor de escritorio, mientras ofrece a los colaboradores una aplicación 
+móvil intuitiva para consultar su información y registrar su asistencia mediante 
+validación biométrica y geolocalización (según configuración del dispositivo).
+
+El alcance del sistema incluye:
+- Sincronización en tiempo real entre servidor y múltiples clientes móviles.
+- Generación automatizada de reportes de asistencia en formatos estándar (PDF, Excel).
+- Gestión robusta de datos laborales (sin incluir información sensible de nómina en el cliente).
+- Interfaz gráfica moderna y amigable.
+
+================================================================================
+2. ARQUITECTURA DEL SISTEMA (DOCUMENTACIÓN TÉCNICA)
+================================================================================
+2.1. DESCRIPCIÓN GENERAL
+    El sistema sigue una arquitectura Cliente-Servidor. El Servidor actúa como 
+    la fuente de verdad, alojando la base de datos y la lógica de negocio, y 
+    exponiendo una API REST para la comunicación. El Cliente (App Móvil) consume 
+    estos servicios para autenticación y operaciones de usuario.
+
+2.2. TECNOLOGÍAS UTILIZADAS
+
+    A. SERVIDOR (BACKEND & DESKTOP UI)
+       - Lenguaje: Python 3.10+
+       - Framework API: FastAPI (Alto rendimiento, asíncrono).
+       - Servidor Web: Uvicorn (ASGI).
+       - Interfaz Gráfica: CustomTkinter (Modern UI para escritorio).
+       - Base de Datos: SQLite (Integrada, ligera y fiable).
+       - ORM: SQLAlchemy (Gestión de modelos y consultas).
+       - Generación de Reportes: ReportLab (PDF), OpenPyXL (Excel).
+
+    B. CLIENTE MÓVIL (ANDROID)
+       - Framework: Flutter (Google) - Dart.
+       - Comunicación: Librería `http`.
+       - Almacenamiento Local: SharedPreferences.
+       - Seguridad: `local_auth` (Biometría).
+
+2.3. DIAGRAMA DE BASE DE DATOS (RELACIONAL)
+    El sistema utiliza una base de datos relacional normalizada.
+    
+    [ENTIDADES PRINCIPALES]
+    
+    1. CARGOS:
+       - id (PK), nombre, descripcion.
+       
+    2. HORARIOS:
+       - id (PK), nombre, entrada, salida, dias.
+       
+    3. EMPLEADOS:
+       - id (PK), cedula (Unique), nombre, password.
+       - Relaciones: cargo_id (FK), horario_id (FK).
+       - Datos Personales: telefono, email, direccion.
+       - Datos Laborales: departamento, tipo_personal, materias_asignadas.
+       
+    4. ASISTENCIAS:
+       - id (PK), empleado_id (FK), fecha_hora.
+
+2.4. ESTRUCTURA DEL PROYECTO
+    /Sistema Multiplataforma
+    ├── /Servidor
+    │   ├── /database       # Modelos y configuración de DB (sqlite).
+    │   ├── /gui            # Módulos de interfaz gráfica (Tabs de Gestión, Nómina).
+    │   ├── /services       # Lógica de negocio (Asistencia, Reportes, Empleados).
+    │   ├── /server         # Configuración de API REST (FastAPI).
+    │   ├── main.py         # Punto de entrada de la aplicación.
+    │   └── config.py       # Variables de configuración global.
+    │
+    └── /Cliente/app_movil
+        ├── /lib
+        │   ├── /screens    # Pantallas (Login, Home).
+        │   ├── /services   # Comunicación con API (api_service.dart).
+        │   └── main.dart   # Punto de entrada Flutter.
+
+2.5. SEGURIDAD Y COMUNICACIONES
+    - La comunicación se realiza vía HTTP sobre red local (LAN).
+    - Los endpoints de reportes están restringidos y eliminados de la API pública 
+      para evitar descargas no autorizadas desde móviles.
+    - La aplicación móvil no almacena ni procesa datos salariales.
+
+================================================================================
+3. MANUAL DE INSTALACIÓN Y DESPLIEGUE
+================================================================================
+
+3.1. REQUISITOS PREVIOS
+    - Red de Área Local (LAN): Tanto el servidor como los dispositivos móviles 
+      deben estar conectados a la misma red Wi-Fi o Ethernet.
+    - Dirección IP Estática (Recomendado): Se sugiere asignar una IP fija al 
+      equipo servidor para evitar reconfiguraciones constantes en los clientes.
+
+3.2. INSTALACIÓN DEL SERVIDOR (WINDOWS)
+    El servidor se distribuye como un ejecutable portátil o instalador.
+    
+    PASOS:
+    1. Descargue el archivo `Instalador_SIGEP_Server_Win.exe` o descomprima 
+       el paquete `.zip`.
+    2. Ubique la carpeta en una ruta accesible (ej: `C:\SIGEP\`).
+    3. Haga doble clic en `SIGEP_Server.exe` (o `main.exe`).
+    4. Al iniciar por primera vez, el sistema creará automáticamente la base de 
+       datos `sigep.db` si no existe.
+    5. Windows Firewall puede solicitar permiso para que la aplicación acceda a 
+       la red. Debe seleccionar "Permitir acceso" en Redes Privadas.
+
+3.3. INSTALACIÓN DEL SERVIDOR (LINUX)
+    Distribuido como binario ejecutable o paquete compatible (Debian/RPM).
+
+    PASOS:
+    1. Descargue el paquete `sigep-server-linux.tar.gz`.
+    2. Abra una terminal y navegue al directorio de descarga.
+    3. Extraiga el contenido: `tar -xzvf sigep-server-linux.tar.gz`.
+    4. Otorgue permisos de ejecución: `chmod +x sigep_server`.
+    5. Ejecute el servidor: `./sigep_server`.
+    6. Asegúrese de que el puerto 8000 esté abierto en su firewall (`ufw allow 8000`).
+
+3.4. INSTALACIÓN DEL CLIENTE (ANDROID)
+    Distribuido como archivo APK (`app-release.apk`).
+
+    PASOS:
+    1. Transfiera el archivo `app-release.apk` a su dispositivo móvil.
+    2. Abra el archivo desde su gestor de archivos.
+    3. Si es la primera vez, Android solicitará permiso para "Instalar aplicaciones 
+       de orígenes desconocidos". Conceda el permiso.
+    4. Complete la instalación y abra la app "SIGEP Móvil".
+
+================================================================================
+4. MANUAL DE USUARIO - APLICACIÓN SERVIDOR (ADMINISTRADOR)
+================================================================================
+
+4.1. INICIO Y DASHBOARD
+    Al ejecutar el servidor, se abrirá una ventana con una interfaz moderna y pestañas 
+    de navegación en la parte superior. La aplicación inicia automáticamente el 
+    servicio de escucha para las apps móviles.
+
+4.2. GESTIÓN DE NÓMINA Y EMPLEADOS
+    - Navegue a la pestaña "Nómina" o "Gestión de Personal".
+    - Agregar Empleado: Llene los campos (Cédula, Nombre, Cargo, Horario) y guarde.
+    - Editar/Eliminar: Seleccione un empleado de la lista para modificar sus datos 
+      o darlo de baja.
+
+4.3. MONITOR DE ASISTENCIA EN TIEMPO REAL
+    - Navegue a la pestaña "Asistencia".
+    - Esta pantalla muestra una tabla de registros que se actualiza AUTOMÁTICAMENTE 
+      cada 2 segundos.
+    - Podrá ver: Foto/Icono, Nombre, Hora de Entrada y Estado.
+    - No requiere recargar la página manualmente.
+
+4.4. GENERACIÓN DE REPORTES
+    ¡EXCLUSIVO ADMINISTRADOR!
+    En la pestaña "Asistencia", encontrará botones dedicados para exportar datos:
+    
+    [BOTÓN PDF]: Genera un documento formal, listo para imprimir, con el historial 
+    de asistencias filtrado o completo. Ideal para archivos físicos.
+    
+    [BOTÓN EXCEL]: Exporta una hoja de cálculo (.xlsx) detallada, permitiendo 
+    al personal administrativo realizar análisis adicionales, filtros o cálculos 
+    de horas extra.
+
+4.5. CONFIGURACIÓN DEL SISTEMA
+    En la pestaña "Servidor" o "Configuración":
+    - Verifique la IP del servidor (ej: 192.168.1.15).
+    - Esta es la IP que deberá proporcionar a los usuarios de la app móvil.
+    - Puede ver el estado del servicio (En línea/Detenido) y logs de actividad.
+
+================================================================================
+5. MANUAL DE USUARIO - APLICACIÓN MÓVIL (COLABORADOR)
+================================================================================
+
+5.1. CONFIGURACIÓN INICIAL E INICIO DE SESIÓN
+    1. Al abrir la app por primera vez, se le solicitará la "IP del Servidor".
+    2. Ingrese la IP proporcionada por el administrador (ej: 192.168.1.XX).
+    3. Pulse "Guardar/Conectar".
+    4. En la pantalla de Login, ingrese su Cédula y Contraseña.
+
+5.2. MI INFORMACIÓN
+    Una vez dentro, verá su panel personal:
+    - Tarjeta de Bienvenida con su nombre.
+    - Detalles de su Cargo y Departamento.
+    - Horario asignado y materias (si aplica).
+    *NOTA: Por seguridad y política de privacidad, esta app NO muestra información 
+    de sueldos ni nómina.*
+
+5.3. MARCAJE DE ASISTENCIA
+    Para registrar su entrada o salida:
+    1. Pulse el botón flotante o la opción "Marcar Asistencia".
+    2. El sistema validará su identidad.
+    3. Recibirá una confirmación inmediata "Asistencia Registrada Exitosamente".
+    4. Su registro aparecerá instantáneamente en la pantalla del administrador.
+
+================================================================================
+6. SOLUCIÓN DE PROBLEMAS FRECUENTES (TROUBLESHOOTING)
+================================================================================
+
+P: La app móvil dice "Error de conexión" o "Servidor no encontrado".
+R: 
+   1. Asegúrese de que el móvil y la PC servidor estén en la misma red Wi-Fi.
+   2. Verifique que el Firewall de Windows en el servidor no esté bloqueando Python.
+   3. Confirme que la IP ingresada en la app sea correcta (ver pestaña Configuración en Server).
+
+P: La tabla de asistencia en el servidor no se actualiza.
+R: El sistema tiene auto-refresco. Si se detiene, intente cambiar de pestaña y volver. 
+   Reinicie la aplicación servidor si el problema persiste.
+
+P: Intento descargar un reporte desde el celular y no encuentro la opción.
+R: Esta funcionalidad ha sido deshabilita en móviles por seguridad. Solicite los 
+   reportes al administrador, quien puede generarlos desde el servidor.
+
+P: Aparece "Empleado Desconocido" en los reportes.
+R: Esto ocurre si un empleado fue eliminado de la base de datos pero sus registros 
+   de asistencia históricos se conservan. El sistema está diseñado para no fallar 
+   y mostrará los datos disponibles.
+
+================================================================================
+FIN DEL DOCUMENTO
+Generado automáticamente por el Asistente de Desarrollo.
+Fecha: 12 de Febrero, 2026.
+================================================================================

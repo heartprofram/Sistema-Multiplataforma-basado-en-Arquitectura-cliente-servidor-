@@ -1,0 +1,40 @@
+erDiagram
+    CARGO {
+        int id PK
+        string nombre
+        string descripcion
+    }
+
+    HORARIO {
+        int id PK
+        string nombre
+        string entrada
+        string salida
+        string dias
+    }
+
+    EMPLEADO {
+        int id PK
+        string cedula "Unique"
+        string nombre
+        string password
+        string telefono
+        string email
+        string direccion
+        string departamento
+        string tipo_personal
+        int cargo_id FK
+        int horario_id FK
+        text materias_asignadas
+        datetime fecha_registro
+    }
+
+    ASISTENCIA {
+        int id PK
+        int empleado_id FK
+        datetime fecha_hora
+    }
+
+    CARGO ||--o{ EMPLEADO : tiene
+    HORARIO ||--o{ EMPLEADO : tiene
+    EMPLEADO ||--o{ ASISTENCIA : registra

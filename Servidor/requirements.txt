@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+customtkinter
+sqlalchemy
+openpyxl
+reportlab
+pydantic
+cx_Freeze

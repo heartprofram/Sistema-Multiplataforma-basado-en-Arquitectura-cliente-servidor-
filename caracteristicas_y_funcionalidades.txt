@@ -1,0 +1,62 @@
+ANÁLISIS DE PROYECTO: SISTEMA INTEGRAL MULTIPLATAFORMA (UNEFA)
+
+DESCRIPCIÓN GENERAL
+El proyecto es un sistema multiplataforma diseñado para modernizar la gestión del talento humano y el control operativo en la UNEFA (Núcleo Guárico – Extensión Zaraza). Opera bajo una arquitectura Cliente-Servidor sobre una Intranet local, eliminando la dependencia de internet externo para operaciones críticas y garantizando la soberanía de los datos.
+
+ARQUITECTURA DEL SISTEMA
+
+1. Servidor / Nodo Central (Escritorio - Windows)
+   - Lenguaje: Python 3.
+   - Interfaz Gráfica (GUI): CustomTkinter (Diseño moderno y limpio).
+   - Backend API: FastAPI (Expone los servicios a la red local).
+   - Base de Datos: SQLite (Archivo local `sigep.db`, gestionado con SQLAlchemy).
+
+2. Cliente Móvil (App Android)
+   - Framework: Flutter (Dart).
+   - Comunicación: HTTP/JSON (Consumo de la API REST del servidor).
+   - Seguridad Local: Biometría (Huella/FaceID) mediante librería `local_auth`.
+
+CARACTERÍSTICAS Y FUNCIONALIDADES IMPLEMENTADAS
+
+A. APLICACIÓN DE ESCRITORIO (SERVIDOR)
+Actúa como el panel de control administrativo y servidor de red.
+
+1. Gestión de Personal (Módulo "Personal - Nómina")
+   - CRUD Completo: Registro, consulta, edición y eliminación de empleados.
+   - Datos Manejados:
+     - Personales (Nombre, Cédula, Contraseña para la App).
+     - Laborales (Tipo de Personal: Docente/Admin/Obrero, Cargo, Horario, Materias).
+     - Nómina (Sueldo Base, Bonos, Deducciones).
+
+2. Panel de Conexión (Módulo "Conexión")
+   - Control del Servicio: Iniciar/Detener el servidor API.
+   - Visualización de IP: Muestra la dirección IP local del servidor para configurar los clientes móviles.
+
+3. Monitoreo y Reportes (Módulo "Asistencia")
+   - (Según análisis de código) Integración con generación de reportes en Excel y PDF para control de asistencia (archivos detectados: `reporte_asistencia_*.xlsx`, `ficha_asistencia_*.pdf`).
+
+B. APLICACIÓN MÓVIL (CLIENTE)
+Permite al personal interactuar con el sistema desde sus dispositivos.
+
+1. Autenticación y Seguridad
+   - Login tradicional: Usuario (Cédula) y Contraseña.
+   - Seguridad Biométrica: Para marcar asistencia, exige huella dactilar o PIN del dispositivo (Opcional según soporte del equipo).
+
+2. Gestión de Asistencia
+   - Registro de Entrada/Salida: Botón digital que envía la confirmación al servidor con un solo toque, registrando la hora exacta del servidor.
+
+3. Consulta de Información (Dashboard Personal)
+   - Perfil Laboral: Visualización de Cargo y Tipo de Personal.
+   - Carga Académica: Consulta de Horario y Materias asignadas.
+   - Recibo de Pago Digital: Visualización detallada de Sueldo Base, Bonos, Deducciones y Neto a cobrar.
+
+4. Configuración
+   - Ajuste de IP del servidor para conexión en diferentes redes locales.
+
+ASPECTOS TÉCNICOS DESTACADOS
+- Independencia de Internet: Funciona con red local (Wi-Fi/LAN).
+- Modernización de Procesos: Digitaliza la asistencia (reemplaza papel) y automatiza el cálculo de nómina básico para visualización.
+- Escalabilidad: La estructura FastAPI + Flutter permite expandir funcionalidades fácilmente.
+
+FUNCIONALIDADES PENDIENTES / POR INTEGRAR (Según descripción original)
+- Remisión de Informes de Actividades: Aunque la descripción menciona "remitir informes", el análisis del código actual (API y App) muestra principalmente funciones de "Lectura" (Consultas) y "Marcaje de Asistencia". La funcionalidad de enviar reportes textuales o archivos desde el móvil no está visible en los archivos analizados actualmente.
