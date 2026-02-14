@@ -3,6 +3,8 @@ import '../services/api_service.dart';
 import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -21,14 +23,17 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _cargarIpGuardada() async {
-    final prefs = await _api.loadBaseUrl();
-    // Aquí podrías recuperar la IP para mostrarla, pero por simplicidad
-    // dejamos que el usuario la vea en la PC.
+    final ipGuardada = await _api.loadBaseUrl();
+    if (ipGuardada != null && ipGuardada.isNotEmpty) {
+      _ipController.text = ipGuardada;
+    }
   }
 
   void _iniciarSesion() async {
     if (_ipController.text.isEmpty || _cedulaController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Faltan datos")));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Faltan datos")));
       return;
     }
 
@@ -39,22 +44,22 @@ class _LoginScreenState extends State<LoginScreen> {
 
     // 2. Login
     var resultado = await _api.login(
-      _cedulaController.text.trim(), 
-      _passController.text.trim()
+      _cedulaController.text.trim(),
+      _passController.text.trim(),
     );
 
     setState(() => _isLoading = false);
 
     if (resultado.containsKey("id")) {
       Navigator.pushReplacement(
-        context, 
-        MaterialPageRoute(builder: (context) => HomeScreen(usuario: resultado))
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen(usuario: resultado)),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(resultado["error"] ?? "Error desconocido"), 
-          backgroundColor: Colors.red
+          content: Text(resultado["error"] ?? "Error desconocido"),
+          backgroundColor: Colors.red,
         ),
       );
     }
@@ -73,9 +78,16 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 Icon(Icons.lock_person, size: 80, color: Colors.indigo),
                 SizedBox(height: 20),
-                Text("SIGEP MÓVIL", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.indigo)),
+                Text(
+                  "SIGEP MÓVIL",
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.indigo,
+                  ),
+                ),
                 SizedBox(height: 40),
-                
+
                 TextField(
                   controller: _ipController,
                   decoration: InputDecoration(
@@ -109,16 +121,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(height: 30),
 
-                _isLoading 
-                  ? CircularProgressIndicator()
-                  : ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.indigo,
-                        minimumSize: Size(double.infinity, 50),
+                _isLoading
+                    ? CircularProgressIndicator()
+                    : ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.indigo,
+                          minimumSize: Size(double.infinity, 50),
+                        ),
+                        onPressed: _iniciarSesion,
+                        child: Text(
+                          "INGRESAR",
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
                       ),
-                      onPressed: _iniciarSesion,
-                      child: Text("INGRESAR", style: TextStyle(color: Colors.white, fontSize: 16)),
-                    ),
               ],
             ),
           ),

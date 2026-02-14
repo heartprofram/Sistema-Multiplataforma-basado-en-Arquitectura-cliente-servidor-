@@ -11,6 +11,7 @@ from database.models import init_db
 from gui.tab_nomina import NominaTab
 from gui.tab_gestion import GestionTab
 from gui.tab_server import ServerTab 
+from gui.tab_estadisticas import EstadisticasTab
 
 # Configuración de Logging
 logging.basicConfig(
@@ -60,6 +61,11 @@ class MainApp(ctk.CTk):
         self.tabview.add("Asistencia") # Removed emoji
         self.tab_gestion = GestionTab(master=self.tabview.tab("Asistencia"))
         self.tab_gestion.pack(fill="both", expand=True)
+
+        # 4. Pestaña de Estadísticas (NUEVO)
+        self.tabview.add("Estadisticas")
+        self.tab_estadisticas = EstadisticasTab(master=self.tabview.tab("Estadisticas"))
+        self.tab_estadisticas.pack(fill="both", expand=True)
 
         logger.info("Aplicacion iniciada correctamente")
 

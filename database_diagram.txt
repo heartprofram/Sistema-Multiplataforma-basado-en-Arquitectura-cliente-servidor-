@@ -21,6 +21,11 @@ erDiagram
         string telefono
         string email
         string direccion
+        string fecha_nacimiento
+        string lugar_nacimiento
+        string estado_civil
+        string genero
+        string nacionalidad
         string departamento
         string tipo_personal
         int cargo_id FK
@@ -29,12 +34,29 @@ erDiagram
         datetime fecha_registro
     }
 
+    DETALLE_DOCENTE {
+        int id PK
+        int empleado_id FK "Unique"
+        string nucleo_extension
+        string fecha_ingreso
+        string perfil_academico
+        string categoria_actual
+        string condicion_dedicacion
+        string cargo_colateral
+        string carrera
+        string semestre
+        int horas_academicas
+        text asignaturas
+        text observaciones
+    }
+
     ASISTENCIA {
         int id PK
         int empleado_id FK
         datetime fecha_hora
     }
 
-    CARGO ||--o{ EMPLEADO : tiene
-    HORARIO ||--o{ EMPLEADO : tiene
-    EMPLEADO ||--o{ ASISTENCIA : registra
+    CARGO ||--o{ EMPLEADO : "tiene"
+    HORARIO ||--o{ EMPLEADO : "tiene"
+    EMPLEADO ||--o{ ASISTENCIA : "registra"
+    EMPLEADO ||--|| DETALLE_DOCENTE : "tiene detalle"

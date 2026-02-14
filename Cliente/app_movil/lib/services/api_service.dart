@@ -6,11 +6,12 @@ class ApiService {
   String _baseUrl = "";
 
   // 1. Cargar la IP guardada en memoria
-  Future<void> loadBaseUrl() async {
+  Future<String?> loadBaseUrl() async {
     final prefs = await SharedPreferences.getInstance();
     String? ip = prefs.getString('server_ip');
     // Si hay IP guardada, la usamos. Si no, cadena vacía.
     _baseUrl = ip != null ? "http://$ip:8000" : "";
+    return ip;
   }
 
   // 2. Guardar una nueva IP
@@ -35,7 +36,7 @@ class ApiService {
             headers: {"Content-Type": "application/json"},
             body: jsonEncode({"cedula": cedula, "password": password}),
           )
-          .timeout(Duration(seconds: 5)); // Timeout de 5 segs para no colgarse
+          .timeout(Duration(seconds: 10)); // Timeout aumentado a 10s
 
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
@@ -43,6 +44,9 @@ class ApiService {
         return {"error": "Credenciales incorrectas"};
       }
     } catch (e) {
+      if (e.toString().contains("Timeout")) {
+        return {"error": "Tiempo de espera agotado. Verifica tu conexión."};
+      }
       return {"error": "No conecta. Revisa IP y Firewall. ($e)"};
     }
   }
