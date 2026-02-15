@@ -15,7 +15,7 @@ Este proyecto es un sistema integral diseñado para la gestión de talento human
 
 | Componente | Archivo | Descripción |
 | :--- | :---: | :--- |
-| **📱 App Móvil** | [![Descargar APK](https://img.shields.io/badge/⬇️_Descargar_APK_Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://github.com/heartprofram/Sistema-Multiplataforma-basado-en-Arquitectura-cliente-servidor-/releases/download/v1.0.0/SIGEP_App_v1.0.apk) | Instalar en teléfonos de los empleados. |
+| **📱 App Móvil** | [![Descargar APK](https://img.shields.io/badge/⬇️_Descargar_APK_Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://github.com/heartprofram/Sistema-Multiplataforma-basado-en-Arquitectura-cliente-servidor-/releases/tag/v1.0) | Instalar en teléfonos de los empleados. |
 | **🖥️ Servidor PC** | [![Descargar Servidor](https://img.shields.io/badge/⬇️_Descargar_Servidor_(ZIP)-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/heartprofram/Sistema-Multiplataforma-basado-en-Arquitectura-cliente-servidor-/releases/tag/v1.0.0) | Panel de control para el Administrador. |
 
 ### 📋 Instrucciones rápidas:
