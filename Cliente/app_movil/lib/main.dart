@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'screens/login_screen.dart';
 
+import 'constants.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -12,7 +14,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'SIGEP App',
       theme: ThemeData(
-        primarySwatch: Colors.indigo,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: kNavyBlue,
+          primary: kNavyBlue,
+          secondary: kNavyBlue,
+        ),
         useMaterial3: true,
       ),
       home: LoginScreen(),

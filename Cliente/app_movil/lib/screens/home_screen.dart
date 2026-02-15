@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../constants.dart';
 import 'package:flutter/services.dart'; // Necesario para errores de plataforma
 import 'package:local_auth/local_auth.dart'; // <--- Importamos Seguridad
 import '../services/api_service.dart';
@@ -127,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Panel del Empleado"),
-        backgroundColor: Colors.indigo,
+        backgroundColor: kNavyBlue,
         actions: [
           IconButton(
             icon: Icon(Icons.exit_to_app, color: Colors.white),
@@ -148,10 +149,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Card(
-                    color: Colors.indigo.shade50,
+                    color: kNavyBlue.withOpacity(0.1),
                     child: ListTile(
                       leading: CircleAvatar(
-                        backgroundColor: Colors.indigo,
+                        backgroundColor: kNavyBlue,
                         child: Icon(Icons.person, color: Colors.white),
                       ),
                       title: Text(
@@ -227,7 +228,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Row(
               children: [
-                Icon(icono, color: Colors.indigo),
+                Icon(icono, color: kNavyBlue),
                 SizedBox(width: 10),
                 Text(
                   titulo,

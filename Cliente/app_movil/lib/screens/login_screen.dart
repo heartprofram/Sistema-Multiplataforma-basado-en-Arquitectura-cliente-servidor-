@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../constants.dart';
 import '../services/api_service.dart';
 import 'home_screen.dart';
 
@@ -76,14 +77,14 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.lock_person, size: 80, color: Colors.indigo),
+                Icon(Icons.lock_person, size: 80, color: kNavyBlue),
                 SizedBox(height: 20),
                 Text(
                   "SIGEP MÓVIL",
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
-                    color: Colors.indigo,
+                    color: kNavyBlue,
                   ),
                 ),
                 SizedBox(height: 40),
@@ -125,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ? CircularProgressIndicator()
                     : ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.indigo,
+                          backgroundColor: kNavyBlue,
                           minimumSize: Size(double.infinity, 50),
                         ),
                         onPressed: _iniciarSesion,

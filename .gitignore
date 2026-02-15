@@ -37,3 +37,7 @@ Cliente/.flutter-plugins
 Cliente/.flutter-plugins-dependencies
 Cliente/.pub-cache/
 Cliente/.packages
+
+# Heap Dumps & PIDs
+*.hprof
+*.pid
