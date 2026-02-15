@@ -9,18 +9,18 @@ Este proyecto es un sistema integral diseñado para la gestión de talento human
 
 ---
 
-## 📥 Descarga y Uso Inmediato
+## 📥 Descarga y Uso Inmediato (v1.0.0)
 
-¿No quieres compilar el código? ¡No hay problema! Hemos generado los ejecutables listos para usar.
+¡Empieza a usar el sistema ahora mismo sin necesidad de programar!
 
-Puedes encontrar la última versión estable (**v1.0.0**) en nuestra sección de **Releases**:
+| Componente | Archivo | Descripción |
+| :--- | :---: | :--- |
+| **📱 App Móvil** | [![Descargar APK](https://img.shields.io/badge/⬇️_Descargar_APK_Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://github.com/heartprofram/Sistema-Multiplataforma-basado-en-Arquitectura-cliente-servidor-/releases/download/v1.0.0/SIGEP_App_v1.0.apk) | Instalar en teléfonos de los empleados. |
+| **🖥️ Servidor PC** | [![Descargar Servidor](https://img.shields.io/badge/⬇️_Descargar_Servidor_(ZIP)-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/heartprofram/Sistema-Multiplataforma-basado-en-Arquitectura-cliente-servidor-/releases/download/v1.0.0/SIGEP_Servidor.zip) | Panel de control para el Administrador. |
 
-[![Descargar v1.0.0](https://img.shields.io/badge/⬇️_Descargar_Ejecutables_(v1.0.0)-2ea44f?style=for-the-badge)](https://github.com/heartprofram/Sistema-Multiplataforma-basado-en-Arquitectura-cliente-servidor-/releases/tag/v1.0.0)
-
-### 📦 Contenido de la descarga:
-1.  **📱 Cliente Móvil (`.apk`):** Instálalo en cualquier dispositivo Android.
-    * *Nota:* Asegúrate de estar conectado a la misma red Wi-Fi que el servidor.
-2.  **💻 Servidor (`.zip` / `.exe`):** Descomprime y ejecuta `SIGEP_Server.exe` en Windows para iniciar el panel de control y la base de datos.
+### 📋 Instrucciones rápidas:
+1.  **Móvil:** Descarga el APK e instálalo (acepta orígenes desconocidos). Conéctate al Wi-Fi del servidor.
+2.  **PC:** Descarga el ZIP, descomprímelo y ejecuta `SIGEP_Server.exe`. Si Windows protege la PC, da clic en *"Más información" > "Ejecutar de todas formas"*.
 
 ---
 
@@ -28,10 +28,11 @@ Puedes encontrar la última versión estable (**v1.0.0**) en nuestra sección de
 
 El sistema se compone de dos módulos principales que se comunican entre sí:
 
-* **🖥️ Servidor (Escritorio):** * Desarrollado en **Python**.
-    * Usa **FastAPI** para el backend y **CustomTkinter** para la interfaz administrativa moderna.
+* **🖥️ Servidor (Escritorio):**
+    * Desarrollado en **Python** (**FastAPI** + **CustomTkinter**).
     * Gestiona la base de datos SQLite y expone una API REST local.
-* **📱 Cliente (Móvil):** * Desarrollado en **Flutter** (Dart).
+* **📱 Cliente (Móvil):**
+    * Desarrollado en **Flutter** (Dart).
     * Permite al personal interactuar con el sistema (consultas, marcar asistencia) mediante dispositivos Android.
 
 ## 🚀 Características Principales
@@ -40,14 +41,14 @@ El sistema se compone de dos módulos principales que se comunican entre sí:
 * ✅ **Gestión de Personal:** CRUD completo de empleados, cargos y horarios.
 * ✅ **Nómina:** Visualización detallada de datos personales y laborales.
 * ✅ **Control de Asistencia:** Monitoreo en tiempo real de entradas y salidas.
-* ✅ **Reportes y Estadísticas:** Cálculo de efectividad y generación de reportes en **Excel/PDF**.
+* ✅ **Reportes:** Cálculo de efectividad y exportación a **Excel/PDF**.
 * ✅ **API REST:** Servicio optimizado para conexión fluida con la app móvil.
 
 ### Cliente (App Móvil)
 * ✅ **Autenticación Segura:** Inicio de sesión con soporte para biometría (huella/rostro).
 * ✅ **Conexión Inteligente:** Detección automática de la IP del servidor.
 * ✅ **Marcaje de Asistencia:** Registro de entrada/salida validado por red local.
-* ✅ **Dashboard Personal:** Acceso a perfil, carga académica y recibos de pago.
+* ✅ **Dashboard Personal:** Acceso a perfil, carga académica y recibos.
 
 ## 📂 Estructura del Proyecto
 
@@ -58,75 +59,3 @@ El sistema se compone de dos módulos principales que se comunican entre sí:
 ├── LICENSE           # Licencia Apache 2.0
 ├── README.md         # Documentación del proyecto
 └── .gitignore        # Archivos ignorados por Git
-
-## 🛠️ Requisitos e Instalación
-
-### 1. Servidor (Python)
-
-**Requisitos:**
-*   Python 3.8 o superior.
-
-**Instalación:**
-1.  Navega a la carpeta del servidor:
-    ```bash
-    cd Servidor
-    ```
-2.  Instala las dependencias:
-    ```bash
-    pip install -r requirements.txt
-    ```
-3.  Ejecuta la aplicación:
-    ```bash
-    python main.py
-    ```
-
-### 1. Generar Ejecutables (Windows/Linux)
-
-El proyecto incluye un script de construcción (`setup_build.py`) para crear ejecutables independientes.
-
-**Windows (.exe):**
-1.  Asegúrate de tener instalado `cx_Freeze`:
-    ```bash
-    pip install cx_Freeze
-    ```
-2.  Ejecuta el script de construcción:
-    ```bash
-    cd Servidor
-    python setup_build.py build
-    ```
-3.  El ejecutable se generará en la carpeta `build/exe.win-amd64-3.x/SIGEP_Server.exe`.
-
-**Linux:**
-1.  Copia el proyecto a tu entorno Linux.
-2.  Instala las dependencias y `cx_Freeze`.
-3.  Ejecuta el mismo comando:
-    ```bash
-    python setup_build.py build
-    ```
-4.  El ejecutable compilado para Linux aparecerá en la carpeta `build/exe.linux-x86_64-3.x/`.
-5.  Para distribuir, puedes comprimir esta carpeta:
-    ```bash
-    tar -czvf SIGEP_Server_Linux.tar.gz -C build/exe.linux-x86_64-3.x .
-    ```
-
-**Requisitos:**
-*   Flutter SDK instalado y configurado.
-*   Dispositivo Android/iOS o Emulador.
-
-**Instalación:**
-1.  Navega a la carpeta del cliente:
-    ```bash
-    cd Cliente
-    ```
-2.  Obtén las dependencias:
-    ```bash
-    flutter pub get
-    ```
-3.  Ejecuta la aplicación:
-    ```bash
-    flutter run
-    ```
-
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia **Apache 2.0**. Ver el archivo [LICENSE](LICENSE) para más detalles.
